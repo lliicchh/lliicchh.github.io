@@ -1,0 +1,76 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+title: 🚀 lliicchh's Blog
+email: your-email@example.com
+description: >- # this means to ignore newlines until "baseurl:"
+  🌟 一个热爱技术、分享生活的年轻开发者的个人博客。
+  在这里记录技术成长、分享学习心得、探索有趣的事物。
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://lliicchh.github.io" # the base hostname & protocol for your site
+twitter_username: 
+github_username: lliicchh
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# 允许显示未来日期的文章
+future: true
+
+# 分页设置
+paginate: 5
+paginate_path: "/page:num/"
+
+# 显示文章摘要
+show_excerpts: true
+
+# 语言设置
+lang: zh-CN
+
+# 性能优化
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  startings: all
+  blanklines: false
+  profile: false
+
+# 插件优化
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-compress-html
+
+# 时区设置
+timezone: Asia/Shanghai
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/

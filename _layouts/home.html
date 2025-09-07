@@ -1,0 +1,92 @@
+---
+layout: default
+---
+
+<!-- Enhanced Homepage with Accessibility and Performance -->
+<div class="home" role="main" aria-label="博客首页">
+  {%- if page.title -%}
+    <h1 class="page-heading" itemprop="headline">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+
+  {%- if site.posts.size > 0 -%}
+    <section id="latest-posts" class="latest-posts-section" role="region" aria-label="最新文章">
+      <header class="posts-header">
+        <h2 class="post-list-heading" itemprop="name">📚 最新文章</h2>
+        <p class="posts-description" itemprop="description">最新发布的技术文章和见解</p>
+      </header>
+      
+      <ul class="post-list" role="list" aria-label="文章列表">
+        {%- for post in site.posts limit:5 -%}
+        <li class="post-item" role="listitem" itemscope itemtype="https://schema.org/BlogPosting">
+          <article class="post-article">
+            <a class="post-link" href="{{ post.url | relative_url }}" 
+               aria-label="阅读文章: {{ post.title | escape }}">
+              <h3 class="post-title" itemprop="headline">{{ post.title | escape }}</h3>
+              <div class="post-meta" role="contentinfo" aria-label="文章元信息">
+                <span class="post-date" itemprop="datePublished" content="{{ post.date | date_to_xmlschema }}">
+                  📅 <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y年%m月%d日" }}</time>
+                </span>
+                {%- if post.categories.size > 0 -%}
+                  <span class="post-categories" itemprop="about" aria-label="文章分类">
+                    | 📂 {{ post.categories | join: ", " }}
+                  </span>
+                {%- endif -%}
+                {%- if post.tags.size > 0 -%}
+                  <span class="post-tags" itemprop="keywords" aria-label="文章标签">
+                    | 🏷️ {{ post.tags | join: ", " }}
+                  </span>
+                {%- endif -%}
+              </div>
+              {%- if site.show_excerpts -%}
+                <div class="post-excerpt" itemprop="description">{{ post.excerpt | strip_html | truncatewords: 30 }}</div>
+              {%- endif -%}
+            </a>
+          </article>
+        </li>
+        {%- endfor -%}
+      </ul>
+
+      <footer class="posts-footer">
+        <div style="text-align: center; margin-top: 2rem;">
+          <a href="{{ '/archive/' | relative_url }}" class="btn" aria-label="查看所有文章归档">📖 查看所有文章</a>
+        </div>
+      </footer>
+    </section>
+    
+    <!-- Blog Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "{{ site.title }}",
+      "description": "{{ site.description | strip_newlines | strip }}",
+      "url": "{{ site.url }}{{ site.baseurl }}",
+      "publisher": {
+        "@type": "Person",
+        "name": "{{ site.github_username }}",
+        "url": "https://github.com/{{ site.github_username }}"
+      },
+      "blogPost": [
+        {%- for post in site.posts limit:5 -%}
+        {
+          "@type": "BlogPosting",
+          "headline": {{ post.title | jsonify }},
+          "datePublished": "{{ post.date | date_to_xmlschema }}",
+          "url": "{{ site.url }}{{ post.url }}",
+          "description": {{ post.excerpt | strip_html | truncatewords: 30 | jsonify }}{%- unless forloop.last -%},{%- endunless -%}
+        }
+        {%- endfor -%}
+      ]
+    }
+    </script>
+  {%- endif -%}
+  
+  <!-- Performance Optimization Scripts -->
+  <link rel="preload" href="{{ '/assets/js/homepage-optimizer.js' | relative_url }}" as="script">
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  
+  <script src="{{ '/assets/js/homepage-optimizer.js' | relative_url }}" defer></script>
+</div>
